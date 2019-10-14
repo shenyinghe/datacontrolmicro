@@ -3,15 +3,17 @@ package com.pactera.data.governance.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping(value = "/test")
 public class TestController {
 	
-	
-	@RequestMapping(value = "/testsyh101",method = RequestMethod.GET)
+	@ResponseBody
+	@RequestMapping(value = "/testsyh101")
 	public String test() {
 		
-		return null;
+		return "iiik";
 	}
 	
 	
