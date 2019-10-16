@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" debug="false">
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+   	    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      		<pattern>%d %-5level [%thread] %logger{0}: %msg%n</pattern>
+    	</encoder>
+    </appender>
+
+    <appender name="AMQP" class="org.springframework.amqp.rabbit.logback.AmqpAppender">
+        <layout>
+            <pattern><![CDATA[ %d %p %t [%c] - <%m>%n ]]></pattern>
+        </layout>
+        <addresses>192.168.60.128:5672</addresses>
+		<username>shenyinghe</username>
+		<password>123456</password>
+		<virtualHost>/</virtualHost>
+		<param name="virtualHost" value="/" />
+        <abbreviation>36</abbreviation>
+        <includeCallerData>false</includeCallerData>
+        <applicationId>dataquality</applicationId>
+        <routingKeyPattern>dataquality</routingKeyPattern>
+        <generateId>true</generateId>
+        <charset>UTF-8</charset>
+        <durable>true</durable>
+        <deliveryMode>NON_PERSISTENT</deliveryMode>
+        <declareExchange>true</declareExchange>
+        <exchangeName>rabbit.logs</exchangeName>
+        <exchangeType>queue</exchangeType>
+    </appender>
+
+    <logger name="ch.qos.logback" level="INFO"/>
+    <logger name="org.apache" level="WARN"/>
+    <logger name="org.hibernate" level="WARN"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="de.ksbrwsk" level="INFO"/>
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+    
+<!--     <root level="info"> #logback.loglevel#-->
+<!--         <appender-ref ref="STDOUT"/> -->
+<!--         <appender-ref ref="CONSOLE"/> -->
+<!--         <appender-ref ref="AMQP"/> -->
+<!--     </root> -->
+
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="AMQP"/>
+    </root>
+</configuration>
